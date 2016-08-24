@@ -45,19 +45,19 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/dateEditText"
         android:layout_below="@+id/dateTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/timeTextView" />
+        android:layout_toStartOf="@+id/timeTextViewItem" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Ora"
-        android:id="@+id/timeTextView"
-        android:layout_above="@+id/editText2"
+        android:id="@+id/timeTextViewItem"
+        android:layout_above="@+id/dateEditText"
         android:layout_toRightOf="@+id/glicemyValueTextView"
         android:layout_toEndOf="@+id/glicemyValueTextView" />
 
@@ -66,10 +66,10 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_toRightOf="@+id/editText2"
-        android:layout_toEndOf="@+id/editText2" />
+        android:id="@+id/timeEditText"
+        android:layout_alignBottom="@+id/dateEditText"
+        android:layout_toRightOf="@+id/dateEditText"
+        android:layout_toEndOf="@+id/dateEditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
         android:text="Add"
         android:id="@+id/addButton"
         android:layout_above="@+id/glicemyEditText"
-        android:layout_alignRight="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3" />
+        android:layout_alignRight="@+id/timeEditText"
+        android:layout_alignEnd="@+id/timeEditText" />
 
 </RelativeLayout>

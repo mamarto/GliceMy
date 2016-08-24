@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.manfredi.glicemy.db.TaskContract;
 import com.example.manfredi.glicemy.db.TaskDbHelper;
+import com.example.manfredi.glicemy.db.model.Property;
 
 import java.util.ArrayList;
 
@@ -20,15 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
     private TaskDbHelper mHelper;
-    private ArrayAdapter<String> mAdapter;
+    private ArrayAdapter<Property> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mListView = (ListView)findViewById(R.id.listView);
         mHelper = new TaskDbHelper(this);
+
+        mListView = (ListView)findViewById(R.id.listView);
 
         updateUI();
     }
@@ -51,27 +53,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        ArrayList<String> taskList = new ArrayList<>();
+
+        ArrayList<Property> itemList = new ArrayList<>();
+
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.GLI_VALUE, TaskContract.TaskEntry.DATE, TaskContract.TaskEntry.TIME, TaskContract.TaskEntry.MEAL},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            taskList.add(cursor.getString(idx));
+            int valueIdx = cursor.getColumnIndex(TaskContract.TaskEntry.GLI_VALUE);
+            int dateIdx = cursor.getColumnIndex(TaskContract.TaskEntry.DATE);
+            int timeIdx = cursor.getColumnIndex(TaskContract.TaskEntry.TIME);
+            int mealIdx = cursor.getColumnIndex(TaskContract.TaskEntry.MEAL);
+            itemList.add(new Property(cursor.getString(valueIdx), cursor.getString(dateIdx), cursor.getString(timeIdx), cursor.getString(mealIdx)));
         }
 
-        if (mAdapter == null) {
-            mAdapter = new ArrayAdapter<>(this,
-                    R.layout.item,
-                    R.id.task_title,
-                    taskList);
-            mListView.setAdapter(mAdapter);
+        if (adapter == null) {
+            adapter = new ItemArrayAdapter(this, 0, itemList);
+            mListView.setAdapter(adapter);
         }
         else {
-            mAdapter.clear();
-            mAdapter.addAll(taskList);
-            mAdapter.notifyDataSetChanged();
+            adapter.clear();
+            adapter.addAll(itemList);
+            adapter.notifyDataSetChanged();
         }
 
         cursor.close();

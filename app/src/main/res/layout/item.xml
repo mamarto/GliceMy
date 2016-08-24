@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/task_title"
+        android:id="@+id/valueTextViewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Hello"
-        android:textSize="20sp" />
+        android:text="value"
+        android:textSize="20sp"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="date"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/dateTextViewItem"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="time"
+        android:id="@+id/timeTextViewItem"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/dateTextViewItem"
+        android:layout_toEndOf="@+id/dateTextViewItem"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="meal"
+        android:id="@+id/mealTextView"
+        android:layout_below="@+id/dateTextViewItem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
