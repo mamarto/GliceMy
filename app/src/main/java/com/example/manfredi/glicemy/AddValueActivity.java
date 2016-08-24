@@ -3,9 +3,11 @@ package com.example.manfredi.glicemy;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
@@ -41,8 +43,6 @@ public class AddValueActivity extends AppCompatActivity {
         mHelper = new TaskDbHelper(this);
 
         cal = Calendar.getInstance();
-
-
         int minute = cal.get(Calendar.MINUTE);
         int hourofday = cal.get(Calendar.HOUR_OF_DAY);
 
@@ -56,7 +56,6 @@ public class AddValueActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(adapter);
 
-
         glicemyEditText = (EditText) findViewById(R.id.glicemyEditText);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
         timeEditText = (EditText) findViewById(R.id.timeEditText);
@@ -66,7 +65,6 @@ public class AddValueActivity extends AppCompatActivity {
         dateEditText.setText(currentDate);
 
         timeEditText.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -86,8 +84,6 @@ public class AddValueActivity extends AppCompatActivity {
             }
         });
 
-
-
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,9 +97,28 @@ public class AddValueActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertValue(glicemyEditText.getText(), dateEditText.getText(), timeEditText.getText(), spinner.getSelectedItem());
-                Intent intent = new Intent(AddValueActivity.this, MainActivity.class);
-                startActivity(intent);
+                Editable glicemyValue = glicemyEditText.getText();
+                Editable dateValue = dateEditText.getText();
+                Editable timeValue = timeEditText.getText();
+                Object spinnerValue = spinner.getSelectedItem();
+
+                if (!String.valueOf(glicemyValue).equals("")) {
+                    insertValue(glicemyValue, dateValue, timeValue, spinnerValue);
+                    Intent intent = new Intent(AddValueActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    new AlertDialog.Builder(AddValueActivity.this)
+                            .setTitle("Manca il valore")
+                            .setMessage("completa il campo glicemia")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         });
     }
@@ -128,7 +143,6 @@ public class AddValueActivity extends AppCompatActivity {
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
@@ -138,11 +152,9 @@ public class AddValueActivity extends AppCompatActivity {
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateLabel();
         }
-
     };
 
     private void updateLabel() {
-
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 

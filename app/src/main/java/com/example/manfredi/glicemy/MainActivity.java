@@ -5,10 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.manfredi.glicemy.db.TaskContract;
 import com.example.manfredi.glicemy.db.TaskDbHelper;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private TaskDbHelper mHelper;
     private ArrayAdapter<Property> adapter;
 
+    private Property obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         mHelper = new TaskDbHelper(this);
 
         mListView = (ListView)findViewById(R.id.listView);
+        registerForContextMenu(mListView);
+
+
+
 
         updateUI();
     }
@@ -54,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-
         ArrayList<Property> itemList = new ArrayList<>();
 
         SQLiteDatabase db = mHelper.getReadableDatabase();
@@ -82,5 +91,43 @@ public class MainActivity extends AppCompatActivity {
 
         cursor.close();
         db.close();
+    }
+
+    private void deleteItem(Property item) {
+        String itemValue = String.valueOf(item.getValue());
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.delete(TaskContract.TaskEntry.TABLE,
+                TaskContract.TaskEntry.GLI_VALUE + " = ?",
+                new String[]{itemValue});
+        db.close();
+        updateUI();
+        Toast.makeText(this, "Eliminato", Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "Delete") {
+            deleteItem(obj);
+        }
+        else if (item.getTitle() == "Action 2") {
+            Toast.makeText(this, "Action 2 invoked", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        if (v.getId() == R.id.listView) {
+            ListView lv = (ListView) v;
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            obj = (Property) lv.getItemAtPosition(acmi.position);
+
+            menu.setHeaderTitle("Menu");
+            menu.add(0, v.getId(), 0, "Delete");
+            menu.add(0, v.getId(), 0, "Edit");
+        }
     }
 }
