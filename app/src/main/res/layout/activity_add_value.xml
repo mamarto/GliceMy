@@ -49,7 +49,8 @@
         android:layout_below="@+id/dateTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/timeTextViewItem" />
+        android:layout_toStartOf="@+id/timeTextViewItem"
+        android:focusable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="time"
+        android:focusable="false"
         android:ems="10"
         android:id="@+id/timeEditText"
         android:layout_alignBottom="@+id/dateEditText"

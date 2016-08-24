@@ -15,6 +15,7 @@ import com.example.manfredi.glicemy.db.TaskDbHelper;
 import com.example.manfredi.glicemy.db.model.Property;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             int mealIdx = cursor.getColumnIndex(TaskContract.TaskEntry.MEAL);
             itemList.add(new Property(cursor.getString(valueIdx), cursor.getString(dateIdx), cursor.getString(timeIdx), cursor.getString(mealIdx)));
         }
+        Collections.reverse(itemList);
 
         if (adapter == null) {
             adapter = new ItemArrayAdapter(this, 0, itemList);
