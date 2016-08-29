@@ -2,6 +2,7 @@ package com.example.manfredi.glicemy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class ItemArrayAdapter extends ArrayAdapter<Property> {
 
     private Context context;
     private List<Property> glicemyProperty;
+    private int color;
 
     //constructor
     public ItemArrayAdapter(Context context, int resource, ArrayList<Property> objects) {
@@ -50,14 +52,31 @@ public class ItemArrayAdapter extends ArrayAdapter<Property> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
         Property property = glicemyProperty.get(position);
-
+        String meal = property.getMeal();
 
         holder.valueTextView.setText(property.getValue());
         holder.dateTextView.setText(property.getDate());
         holder.timeTextView.setText(property.getTime());
-        holder.mealTextView.setText(property.getMeal());
+        holder.mealTextView.setText(meal);
+
+        int value = Integer.parseInt(property.getValue());
+
+
+        if (value < 70) {
+            color = Color.YELLOW;
+        }
+        else if ( (value > 180 && meal.equals("Dopo")) || (value > 140 && meal.equals("Prima")) ) {
+            color = Color.RED;
+        }
+        else if ( (value > 70 && value < 180 && meal.equals("Dopo")) || (value > 70 && value < 141 && meal.equals("Prima")) ) {
+            color = Color.GREEN;
+        }
+        else {
+            color = Color.BLACK;
+        }
+
+        holder.valueTextView.setTextColor(color);
 
         return convertView;
     }

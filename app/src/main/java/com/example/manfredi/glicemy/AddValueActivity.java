@@ -78,7 +78,7 @@ public class AddValueActivity extends AppCompatActivity {
                         timeEditText.setText( selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("Seleziona Orario");
                 mTimePicker.show();
 
             }
@@ -121,6 +121,26 @@ public class AddValueActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        if ( getIntent().getExtras() != null) {
+            Intent intent = getIntent();
+            String meal = intent.getExtras().getString("meal");
+            String value = intent.getExtras().getString("value");
+            String time = intent.getExtras().getString("time");
+            String date = intent.getExtras().getString("date");
+
+            glicemyEditText.setText(value);
+            dateEditText.setText(date);
+            timeEditText.setText(time);
+            if (meal.equals("Prima")) {
+                spinner.setSelection(0);
+            }
+            else if (meal.equals("Dopo")) {
+                spinner.setSelection(1);
+            }
+        }
     }
 
     private void insertValue(Editable value, Editable date, Editable time, Object spinnerValue) {

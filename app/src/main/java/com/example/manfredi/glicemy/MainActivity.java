@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView)findViewById(R.id.listView);
         registerForContextMenu(mListView);
 
-
-
-
         updateUI();
     }
 
@@ -101,15 +98,27 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{itemValue});
         db.close();
         updateUI();
-        Toast.makeText(this, "Eliminato", Toast.LENGTH_SHORT).show();
+    }
+
+    private void modifyItem(Property item) {
+        // create a new item with the same values
+        Intent intent = new Intent(MainActivity.this, AddValueActivity.class);
+        intent.putExtra("value", item.getValue());
+        intent.putExtra("date", item.getDate());
+        intent.putExtra("time", item.getTime());
+        intent.putExtra("meal", item.getMeal());
+        startActivity(intent);
+
+        deleteItem(item);
     }
 
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle() == "Delete") {
+        if (item.getTitle() == "Elimina") {
             deleteItem(obj);
+            Toast.makeText(this, "Eliminato", Toast.LENGTH_SHORT).show();
         }
-        else if (item.getTitle() == "Action 2") {
-            Toast.makeText(this, "Action 2 invoked", Toast.LENGTH_SHORT).show();
+        else if (item.getTitle() == "Modifica") {
+            modifyItem(obj);
         }
         else {
             return false;
@@ -125,9 +134,8 @@ public class MainActivity extends AppCompatActivity {
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
             obj = (Property) lv.getItemAtPosition(acmi.position);
 
-            menu.setHeaderTitle("Menu");
-            menu.add(0, v.getId(), 0, "Delete");
-            menu.add(0, v.getId(), 0, "Edit");
+            menu.add(0, v.getId(), 0, "Elimina");
+            menu.add(0, v.getId(), 0, "Modifica");
         }
     }
 }
