@@ -64,13 +64,13 @@ public class ItemArrayAdapter extends ArrayAdapter<Property> {
 
 
         if (value < 70) {
-            color = Color.YELLOW;
+            color = Color.parseColor("#fcbe2a");
         }
         else if ( (value > 180 && meal.equals("Dopo")) || (value > 140 && meal.equals("Prima")) ) {
-            color = Color.RED;
+            color = Color.parseColor("#e30613");
         }
-        else if ( (value > 70 && value < 180 && meal.equals("Dopo")) || (value > 70 && value < 141 && meal.equals("Prima")) ) {
-            color = Color.GREEN;
+        else if ( (value > 69 && value < 180 && meal.equals("Dopo")) || (value > 70 && value < 141 && meal.equals("Prima")) ) {
+            color = Color.parseColor("#009640");
         }
         else {
             color = Color.BLACK;
