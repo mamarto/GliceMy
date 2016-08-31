@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.manfredi.glicemy.AddValueActivity">
+    tools:context=".AddValueActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,14 +90,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/addButton"
-        android:layout_above="@+id/glicemyEditText"
-        android:layout_alignRight="@+id/timeEditText"
-        android:layout_alignEnd="@+id/timeEditText" />
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/ic_check_circle"
+        android:id="@+id/addValueImageView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

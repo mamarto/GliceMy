@@ -69,7 +69,7 @@ public class ItemArrayAdapter extends ArrayAdapter<Property> {
         else if ( (value > 180 && meal.equals("Dopo")) || (value > 140 && meal.equals("Prima")) ) {
             color = Color.parseColor("#e30613");
         }
-        else if ( (value > 69 && value < 180 && meal.equals("Dopo")) || (value > 70 && value < 141 && meal.equals("Prima")) ) {
+        else if ( (value > 69 && value < 180 && meal.equals("Dopo")) || (value > 69 && value < 141 && meal.equals("Prima")) ) {
             color = Color.parseColor("#009640");
         }
         else {

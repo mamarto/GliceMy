@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="60dp">
 
     <TextView
         android:id="@+id/valueTextViewItem"
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="value"
         android:textSize="20sp"
+        android:textColor="@android:color/black"
         android:layout_gravity="right"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="date"
+        android:textColor="@android:color/black"
         android:layout_gravity="center_horizontal"
         android:id="@+id/dateTextViewItem"
         android:layout_alignParentTop="true"
@@ -33,6 +35,7 @@
         android:text="time"
         android:id="@+id/timeTextViewItem"
         android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/black"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/dateTextViewItem"
         android:layout_toEndOf="@+id/dateTextViewItem"
@@ -44,6 +47,7 @@
         android:layout_height="wrap_content"
         android:text="meal"
         android:id="@+id/mealTextView"
+        android:textColor="@android:color/black"
         android:layout_below="@+id/dateTextViewItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

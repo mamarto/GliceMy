@@ -3,15 +3,19 @@ package com.example.manfredi.glicemy;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manfredi.glicemy.db.TaskContract;
@@ -27,37 +31,42 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     private TaskDbHelper mHelper;
     private ArrayAdapter<Property> adapter;
+    private ImageView mAddButton;
+    private TextView mActionBarTitle;
 
     private Property obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+
 
         mHelper = new TaskDbHelper(this);
 
         mListView = (ListView)findViewById(R.id.listView);
+        mAddButton = (ImageView)findViewById(R.id.imageView);
+        mActionBarTitle = (TextView)findViewById(R.id.actionBarTitle);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/myfont.ttf");
+        mActionBarTitle.setTypeface(tf);
+
         registerForContextMenu(mListView);
 
-        updateUI();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add_task:
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddValueActivity.class);
                 startActivity(intent);
-        default:
-            return super.onOptionsItemSelected(item);
-        }
+            }
+        });
+
+        updateUI();
     }
 
     private void updateUI() {
