@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.example.manfredi.glicemy"
+        applicationId "com.example.francesco.glicemy"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
